@@ -1,0 +1,8 @@
+{
+  "name": "Jeomseon.Unity.Projector.Tests",
+  "rootNamespace": "Jeomseon.Unity.Projector.Tests",
+  "references": ["Jeomseon.Unity.Projector"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}

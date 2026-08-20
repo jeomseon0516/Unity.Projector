@@ -1,0 +1,30 @@
+{
+  "name": "com.jeomseon.unity.projector",
+  "version": "0.1.0",
+  "displayName": "Jeomseon Unity Projector",
+  "description": "Render Pipeline independent mesh projection primitives for Unity 6000.5.",
+  "unity": "6000.5",
+  "unityRelease": "7f1",
+  "license": "MIT",
+  "keywords": [
+    "projector",
+    "projection",
+    "mesh",
+    "rendering"
+  ],
+  "author": {
+    "name": "jeomseon0516",
+    "url": "https://github.com/jeomseon0516"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeomseon0516/Unity.Projector.git"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Usage",
+      "description": "Projects a texture onto MeshRenderer receivers without exposing the internal Material.",
+      "path": "Samples~/BasicUsage"
+    }
+  ]
+}
