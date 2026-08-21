@@ -416,7 +416,9 @@ namespace Jeomseon.Unity.Projector
 
         private void UpdateFrustumPlanes()
         {
-            Camera camera = cullByCameraFrustum ? (cullingCamera != null ? cullingCamera : Camera.main) : null;
+            Camera camera = Application.isPlaying && cullByCameraFrustum
+                ? (cullingCamera != null ? cullingCamera : Camera.main)
+                : null;
             _frustumPlanesValid = camera != null;
             if (_frustumPlanesValid) GeometryUtility.CalculateFrustumPlanes(camera, _frustumPlanes);
         }

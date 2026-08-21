@@ -1,5 +1,9 @@
 # Jeomseon Unity Projector
 
+> **실험적 패키지:** 이 패키지는 렌더 파이프라인 비종속 Mesh Projection의 가능성을 검증하는
+> 선택적 도구입니다. `GridTileSystem`과는 의존성이나 공식 Adapter가 없는 완전히 독립된 패키지이며,
+> API·성능·표면 호환성은 아직 안정화 계약으로 확정되지 않았습니다.
+
 Unity 6000.5의 `Graphics.RenderMesh`, `RenderParams`, `MaterialPropertyBlock`을 사용하는 Mesh 기반
 투영 패키지입니다. 내부 Material은 Projector가 소유하며 사용자는 검증된 `ProjectorEffect`와 의미
 기반 프로퍼티만 설정합니다.

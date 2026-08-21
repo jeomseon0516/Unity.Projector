@@ -1,5 +1,9 @@
 # Jeomseon Unity Projector
 
+> **Experimental package:** This is an optional tool for validating render-pipeline-independent mesh
+> projection. It is fully independent from `GridTileSystem`, with no dependency or official adapter;
+> its API, performance, and surface compatibility are not yet a stable contract.
+
 A mesh projection package built on Unity 6000.5 `Graphics.RenderMesh`, `RenderParams`, and
 `MaterialPropertyBlock`. The Projector owns its internal Material and only accepts validated
 `ProjectorEffect` assets and semantic property values.

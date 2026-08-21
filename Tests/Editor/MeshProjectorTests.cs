@@ -100,6 +100,25 @@ namespace Jeomseon.Unity.Projector.Tests
             Object.DestroyImmediate(receiver);
         }
 
+        [Test]
+        public void UpdateFrustumPlanes_InEditMode_IgnoresCameraFrustumCulling()
+        {
+            GameObject projectorObject = new(nameof(UpdateFrustumPlanes_InEditMode_IgnoresCameraFrustumCulling));
+            MeshProjector projector = projectorObject.AddComponent<MeshProjector>();
+
+            GameObject cameraObject = new("Culling Camera");
+            Camera camera = cameraObject.AddComponent<Camera>();
+            camera.transform.position = new Vector3(1000f, 1000f, 1000f);
+            SetCullingCamera(projector, camera);
+
+            InvokeUpdateFrustumPlanes(projector);
+
+            Assert.That(GetFrustumPlanesValid(projector), Is.False);
+
+            Object.DestroyImmediate(projectorObject);
+            Object.DestroyImmediate(cameraObject);
+        }
+
         private static Dictionary<Terrain, Mesh> GetTerrainMeshes(MeshProjector projector)
         {
             FieldInfo field = typeof(MeshProjector).GetField(
@@ -107,6 +126,33 @@ namespace Jeomseon.Unity.Projector.Tests
                 BindingFlags.Instance | BindingFlags.NonPublic);
             Assert.That(field, Is.Not.Null);
             return (Dictionary<Terrain, Mesh>)field.GetValue(projector);
+        }
+
+        private static void SetCullingCamera(MeshProjector projector, Camera camera)
+        {
+            FieldInfo field = typeof(MeshProjector).GetField(
+                "cullingCamera",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.That(field, Is.Not.Null);
+            field.SetValue(projector, camera);
+        }
+
+        private static void InvokeUpdateFrustumPlanes(MeshProjector projector)
+        {
+            MethodInfo method = typeof(MeshProjector).GetMethod(
+                "UpdateFrustumPlanes",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.That(method, Is.Not.Null);
+            method.Invoke(projector, null);
+        }
+
+        private static bool GetFrustumPlanesValid(MeshProjector projector)
+        {
+            FieldInfo field = typeof(MeshProjector).GetField(
+                "_frustumPlanesValid",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.That(field, Is.Not.Null);
+            return (bool)field.GetValue(projector);
         }
     }
 }

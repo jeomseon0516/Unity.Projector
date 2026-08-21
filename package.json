@@ -2,12 +2,13 @@
   "name": "com.jeomseon.unity.projector",
   "version": "0.1.0",
   "displayName": "Jeomseon Unity Projector",
-  "description": "Render Pipeline independent mesh projection primitives for Unity 6000.5.",
+  "description": "Experimental render-pipeline-independent mesh projection primitives for Unity 6000.5.",
   "unity": "6000.5",
   "unityRelease": "7f1",
   "license": "MIT",
   "keywords": [
     "projector",
+    "experimental",
     "projection",
     "mesh",
     "rendering"
