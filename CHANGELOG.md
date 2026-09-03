@@ -1,5 +1,9 @@
 # 변경 기록
 
+## [0.1.1] - 2026-09-03
+
+- `MeshProjector`가 `FindObjectsByType<Terrain>`로 Terrain 수신자를 찾는데 `package.json`에 `com.unity.modules.terrain` 의존성이 빠져 있어, Terrain 모듈이 없는 최소 프로젝트에서 `CS1069`로 컴파일되지 않던 문제를 고쳤습니다.
+
 ## [0.1.0] - 2026-09-03
 
 - **(렌더 파이프라인)** 워크스페이스 Unity `6000.6` + URP `17.6` 전환. 번들 셰이더
