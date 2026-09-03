@@ -1,6 +1,6 @@
 # 변경 기록
 
-## [Unreleased]
+## [0.1.0] - 2026-09-03
 
 - **(렌더 파이프라인)** 워크스페이스 Unity `6000.6` + URP `17.6` 전환. 번들 셰이더
   `Hidden/Jeomseon/Projector/Mesh Projection`과 Sample 셰이더 `Jeomseon/Projector/Sample Surface`를
