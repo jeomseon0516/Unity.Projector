@@ -2,10 +2,13 @@
   "name": "com.jeomseon.unity.projector",
   "version": "0.1.0",
   "displayName": "Jeomseon Unity Projector",
-  "description": "Experimental render-pipeline-independent mesh projection primitives for Unity 6000.5.",
-  "unity": "6000.5",
-  "unityRelease": "7f1",
+  "description": "Experimental URP mesh projection primitives for Unity 6000.6. The projection driver (C#) is pipeline-agnostic; bundled shaders target URP 17.6.",
+  "unity": "6000.6",
+  "unityRelease": "0f1",
   "license": "MIT",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "17.6.0"
+  },
   "keywords": [
     "projector",
     "experimental",

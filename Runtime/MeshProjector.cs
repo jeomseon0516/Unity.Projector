@@ -173,9 +173,7 @@ namespace Jeomseon.Unity.Projector
             _meshFilters.Clear();
 
             Bounds projectionBounds = CalculateWorldBounds();
-            foreach (MeshRenderer candidate in FindObjectsByType<MeshRenderer>(
-                         FindObjectsInactive.Exclude,
-                         FindObjectsSortMode.None))
+            foreach (var candidate in FindObjectsByType<MeshRenderer>(FindObjectsInactive.Exclude))
             {
                 if (candidate == null || !candidate.enabled || candidate.gameObject == gameObject ||
                     (receiverMask.value & 1 << candidate.gameObject.layer) == 0 ||
@@ -190,9 +188,7 @@ namespace Jeomseon.Unity.Projector
                 _meshFilters[candidate] = meshFilter;
             }
 
-            foreach (SkinnedMeshRenderer candidate in FindObjectsByType<SkinnedMeshRenderer>(
-                         FindObjectsInactive.Exclude,
-                         FindObjectsSortMode.None))
+            foreach (var candidate in FindObjectsByType<SkinnedMeshRenderer>(FindObjectsInactive.Exclude))
             {
                 if (candidate == null || !candidate.enabled || candidate.gameObject == gameObject ||
                     (receiverMask.value & 1 << candidate.gameObject.layer) == 0 ||
@@ -204,9 +200,7 @@ namespace Jeomseon.Unity.Projector
                 skinnedMeshReceivers.Add(candidate);
             }
 
-            foreach (Terrain candidate in FindObjectsByType<Terrain>(
-                         FindObjectsInactive.Exclude,
-                         FindObjectsSortMode.None))
+            foreach (var candidate in FindObjectsByType<Terrain>(FindObjectsInactive.Exclude))
             {
                 if (candidate == null || !candidate.enabled || candidate.terrainData == null ||
                     (receiverMask.value & 1 << candidate.gameObject.layer) == 0 ||
