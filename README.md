@@ -1,15 +1,16 @@
 # Jeomseon Unity Projector
 
-> **실험적 패키지:** 이 패키지는 렌더 파이프라인 비종속 Mesh Projection의 가능성을 검증하는
-> 선택적 도구입니다. `GridTileSystem`과는 의존성이나 공식 Adapter가 없는 완전히 독립된 패키지이며,
-> API·성능·표면 호환성은 아직 안정화 계약으로 확정되지 않았습니다.
+> **실험적 패키지:** 이 패키지는 Mesh Projection의 가능성을 검증하는 선택적 도구입니다.
+> `GridTileSystem`과는 의존성이나 공식 Adapter가 없는 완전히 독립된 패키지이며, API·성능·표면
+> 호환성은 아직 안정화 계약으로 확정되지 않았습니다.
 
-Unity 6000.5의 `Graphics.RenderMesh`, `RenderParams`, `MaterialPropertyBlock`을 사용하는 Mesh 기반
-투영 패키지입니다. 내부 Material은 Projector가 소유하며 사용자는 검증된 `ProjectorEffect`와 의미
-기반 프로퍼티만 설정합니다.
+Unity 6000.6의 `Graphics.RenderMesh`, `RenderParams`, `MaterialPropertyBlock`을 사용하는 Mesh 기반
+투영 패키지입니다. 투영 구동 로직(C#)은 렌더 파이프라인에 종속되지 않지만, 번들 셰이더는 **URP
+`17.6`을 대상**으로 하며 패키지가 `com.unity.render-pipelines.universal`에 의존합니다. 내부
+Material은 Projector가 소유하며 사용자는 검증된 `ProjectorEffect`와 의미 기반 프로퍼티만 설정합니다.
 
 첫 버전은 Orthographic Box Volume과 `MeshRenderer`, `SkinnedMeshRenderer`, `Terrain` Receiver를
-지원합니다. Terrain은 설정 가능한 해상도의 투영용 메시를 내부 생성합니다. 화면 공간 Decal과
+지원합니다. Terrain은 설정 가능한 해상도의 투영용 메시를 내부 생성합니다. 화면 공간 Decal, HDRP,
 파이프라인별 조명 통합은 지원하지 않습니다.
 
 ## 수신 표면과 갱신

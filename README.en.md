@@ -1,16 +1,18 @@
 # Jeomseon Unity Projector
 
-> **Experimental package:** This is an optional tool for validating render-pipeline-independent mesh
-> projection. It is fully independent from `GridTileSystem`, with no dependency or official adapter;
-> its API, performance, and surface compatibility are not yet a stable contract.
+> **Experimental package:** This is an optional tool for validating mesh projection. It is fully
+> independent from `GridTileSystem`, with no dependency or official adapter; its API, performance, and
+> surface compatibility are not yet a stable contract.
 
-A mesh projection package built on Unity 6000.5 `Graphics.RenderMesh`, `RenderParams`, and
-`MaterialPropertyBlock`. The Projector owns its internal Material and only accepts validated
-`ProjectorEffect` assets and semantic property values.
+A mesh projection package built on Unity 6000.6 `Graphics.RenderMesh`, `RenderParams`, and
+`MaterialPropertyBlock`. The projection driver (C#) is render-pipeline agnostic, but the bundled
+shaders **target URP `17.6`**, so the package depends on `com.unity.render-pipelines.universal`. The
+Projector owns its internal Material and only accepts validated `ProjectorEffect` assets and semantic
+property values.
 
 The first version supports an orthographic box volume and `MeshRenderer`, `SkinnedMeshRenderer`, and
 `Terrain` receivers. Terrain uses an internally generated projection mesh at a configurable
-resolution. Screen-space decals and pipeline-specific lighting integration are outside the scope.
+resolution. Screen-space decals, HDRP, and pipeline-specific lighting integration are outside the scope.
 
 ## Receivers and refresh policy
 

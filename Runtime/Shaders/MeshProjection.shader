@@ -11,6 +11,7 @@ Shader "Hidden/Jeomseon/Projector/Mesh Projection"
     {
         Tags
         {
+            "RenderPipeline" = "UniversalPipeline"
             "Queue" = "Transparent+10"
             "RenderType" = "Transparent"
         }
@@ -18,6 +19,8 @@ Shader "Hidden/Jeomseon/Projector/Mesh Projection"
         Pass
         {
             Name "ProjectorOverlay"
+            Tags { "LightMode" = "UniversalForward" }
+
             Blend SrcAlpha OneMinusSrcAlpha
             Cull Back
             ZWrite Off
@@ -28,9 +31,12 @@ Shader "Hidden/Jeomseon/Projector/Mesh Projection"
             #pragma target 3.5
             #pragma vertex Vertex
             #pragma fragment Fragment
-            #include "UnityCG.cginc"
 
-            sampler2D _ProjectionTexture;
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+            // Fed per draw through a MaterialPropertyBlock, so these stay outside UnityPerMaterial.
+            TEXTURE2D(_ProjectionTexture);
+            SAMPLER(sampler_ProjectionTexture);
             float4 _ProjectionColor;
             float4x4 _ProjectorWorldToProjection;
 
@@ -48,9 +54,9 @@ Shader "Hidden/Jeomseon/Projector/Mesh Projection"
             Varyings Vertex(Attributes input)
             {
                 Varyings output;
-                float4 positionWS = mul(unity_ObjectToWorld, input.positionOS);
-                output.positionCS = mul(UNITY_MATRIX_VP, positionWS);
-                output.positionPS = mul(_ProjectorWorldToProjection, positionWS).xyz;
+                float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+                output.positionCS = TransformWorldToHClip(positionWS);
+                output.positionPS = mul(_ProjectorWorldToProjection, float4(positionWS, 1.0)).xyz;
                 return output;
             }
 
@@ -59,7 +65,7 @@ Shader "Hidden/Jeomseon/Projector/Mesh Projection"
                 float3 distanceToBoundary = 0.5 - abs(input.positionPS);
                 clip(min(distanceToBoundary.x, min(distanceToBoundary.y, distanceToBoundary.z)));
                 float2 uv = input.positionPS.xy + 0.5;
-                return tex2D(_ProjectionTexture, uv) * _ProjectionColor;
+                return SAMPLE_TEXTURE2D(_ProjectionTexture, sampler_ProjectionTexture, uv) * _ProjectionColor;
             }
             ENDHLSL
         }
