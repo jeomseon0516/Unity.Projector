@@ -4,6 +4,35 @@
 > `GridTileSystem`과는 의존성이나 공식 Adapter가 없는 완전히 독립된 패키지이며, API·성능·표면
 > 호환성은 아직 안정화 계약으로 확정되지 않았습니다.
 
+## OpenUPM으로 설치
+
+프로젝트의 `Packages/manifest.json`에 OpenUPM scoped registry를 한 번 등록합니다.
+
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.jeomseon"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.jeomseon.unity.projector": "0.1.1"
+  }
+}
+```
+
+## Git URL로 설치
+
+Unity Package Manager의 `Install package from git URL`에 다음 주소를 사용합니다.
+
+```text
+https://github.com/jeomseon0516/Unity.Projector.git#v0.1.1
+```
+
 Unity 6000.6의 `Graphics.RenderMesh`, `RenderParams`, `MaterialPropertyBlock`을 사용하는 Mesh 기반
 투영 패키지입니다. 투영 구동 로직(C#)은 렌더 파이프라인에 종속되지 않지만, 번들 셰이더는 **URP
 `17.6`을 대상**으로 하며 패키지가 `com.unity.render-pipelines.universal`에 의존합니다. 내부

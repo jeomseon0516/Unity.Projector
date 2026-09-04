@@ -4,6 +4,35 @@
 > independent from `GridTileSystem`, with no dependency or official adapter; its API, performance, and
 > surface compatibility are not yet a stable contract.
 
+## Install via OpenUPM
+
+Register the OpenUPM scoped registry once in your project's `Packages/manifest.json`.
+
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.jeomseon"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.jeomseon.unity.projector": "0.1.1"
+  }
+}
+```
+
+## Install via Git URL
+
+Enter the following URL in Unity Package Manager's `Install package from git URL`.
+
+```text
+https://github.com/jeomseon0516/Unity.Projector.git#v0.1.1
+```
+
 A mesh projection package built on Unity 6000.6 `Graphics.RenderMesh`, `RenderParams`, and
 `MaterialPropertyBlock`. The projection driver (C#) is render-pipeline agnostic, but the bundled
 shaders **target URP `17.6`**, so the package depends on `com.unity.render-pipelines.universal`. The
