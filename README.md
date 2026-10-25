@@ -1,12 +1,27 @@
 # Jeomseon Unity Projector
 
-> **실험적 패키지:** 이 패키지는 Mesh Projection의 가능성을 검증하는 선택적 도구입니다.
-> `GridTileSystem`과는 의존성이나 공식 Adapter가 없는 완전히 독립된 패키지이며, API·성능·표면
-> 호환성은 아직 안정화 계약으로 확정되지 않았습니다.
+한국어 | [English](README.en.md)
 
-## OpenUPM으로 설치
+실험적인 Orthographic Mesh 투영 도구입니다. GridTileSystem과 독립적이며 번들 Shader는 URP를 대상으로 합니다.
 
-프로젝트의 `Packages/manifest.json`에 OpenUPM scoped registry를 한 번 등록합니다.
+## 빠르게 시작하기
+
+ProjectorEffect와 볼륨/Receiver 설정 → RefreshReceivers 또는 자동 수집 → Graphics.RenderMesh로 표면에 투영 → Disable/Destroy 시 내부 Material·생성 Mesh 정리.
+
+## 계약과 주의사항
+
+안정화된 범용 Decal 대체재가 아닙니다. Screen-space/HDRP 통합은 없습니다. SkinnedMesh는 매 프레임 BakeMesh, Terrain은 캐시된 투영 메시를 사용하므로 대상 규모별 실측이 필요합니다.
+
+## 요구 사항
+
+- Unity `6000.6.0f1`
+- 패키지: `com.jeomseon.unity.projector` `0.1.1`
+- `com.unity.render-pipelines.universal`: `17.6.0`
+- `com.unity.modules.terrain`: `1.0.0`
+
+## 설치
+
+프로젝트 `Packages/manifest.json`의 기존 dependencies와 registry를 유지하면서 다음 항목을 병합합니다.
 
 ```json
 {
@@ -25,24 +40,15 @@
 }
 ```
 
-## Git URL로 설치
-
-Unity Package Manager의 `Install package from git URL`에 다음 주소를 사용합니다.
+또는 Package Manager의 **Install package from git URL**을 사용합니다:
 
 ```text
 https://github.com/jeomseon0516/Unity.Projector.git#v0.1.1
 ```
 
-Unity 6000.6의 `Graphics.RenderMesh`, `RenderParams`, `MaterialPropertyBlock`을 사용하는 Mesh 기반
-투영 패키지입니다. 투영 구동 로직(C#)은 렌더 파이프라인에 종속되지 않지만, 번들 셰이더는 **URP
-`17.6`을 대상**으로 하며 패키지가 `com.unity.render-pipelines.universal`에 의존합니다. 내부
-Material은 Projector가 소유하며 사용자는 검증된 `ProjectorEffect`와 의미 기반 프로퍼티만 설정합니다.
+## API 사용과 상세 설명
 
-첫 버전은 Orthographic Box Volume과 `MeshRenderer`, `SkinnedMeshRenderer`, `Terrain` Receiver를
-지원합니다. Terrain은 설정 가능한 해상도의 투영용 메시를 내부 생성합니다. 화면 공간 Decal, HDRP,
-파이프라인별 조명 통합은 지원하지 않습니다.
-
-## 수신 표면과 갱신
+### 수신 표면과 갱신
 
 - `Automatically Collect Receivers`가 켜져 있으면 Projector 이동·크기·Layer 변경 직후와
   `Automatic Refresh Interval`마다 볼륨과 겹치는 활성 Receiver를 다시 찾습니다. 기본값은 0.5초이며
@@ -56,3 +62,25 @@ Material은 Projector가 소유하며 사용자는 검증된 `ProjectorEffect`�
 
 Projector가 만든 Material과 생성 Mesh는 컴포넌트가 소유하며 Disable/Destroy 시 해제합니다.
 `ProjectorEffect`의 Shader는 `_ProjectorEffectVersion` 계약을 선언해야 합니다.
+
+## 샘플 실행
+
+**Package Manager > Samples**에서 예제를 Import합니다. 포함된 Scene 또는 Editor 도구를 열고 필요한 Setup 메뉴를 먼저 실행합니다.
+
+- [Basic Usage](Samples~/BasicUsage/README.md)
+  - [ProjectorBasicUsage](Samples~/BasicUsage/ProjectorBasicUsage.unity)
+
+## 테스트
+
+[테스트 코드](Tests)
+
+manifest의 `testables`에 패키지 ID를 추가하고 Unity Test Runner의 관련 EditMode/PlayMode 어셈블리를 실행합니다.
+
+## 추가 문서
+
+[전체 코드 지도와 패키지 구성](Documentation~/Overview.md)
+- [Changelog](CHANGELOG.md)
+
+## 라이선스
+
+[License](LICENSE.md)

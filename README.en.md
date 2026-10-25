@@ -1,12 +1,27 @@
 # Jeomseon Unity Projector
 
-> **Experimental package:** This is an optional tool for validating mesh projection. It is fully
-> independent from `GridTileSystem`, with no dependency or official adapter; its API, performance, and
-> surface compatibility are not yet a stable contract.
+[한국어](README.md) | English
 
-## Install via OpenUPM
+An experimental orthographic mesh projection tool, independent of GridTileSystem, with bundled shaders targeting URP.
 
-Register the OpenUPM scoped registry once in your project's `Packages/manifest.json`.
+## Quick start
+
+Configure ProjectorEffect/volume/Receivers, RefreshReceivers or collect automatically, project via Graphics.RenderMesh, and release internal Materials/generated Meshes on Disable/Destroy.
+
+## Contracts and limitations
+
+Not a stabilized general-purpose Decal replacement. No screen-space/HDRP integration. SkinnedMesh uses per-frame BakeMesh; Terrain uses cached projection geometry. Profile target scene sizes.
+
+## Requirements
+
+- Unity `6000.6.0f1`
+- Package: `com.jeomseon.unity.projector` `0.1.1`
+- `com.unity.render-pipelines.universal`: `17.6.0`
+- `com.unity.modules.terrain`: `1.0.0`
+
+## Installation
+
+Merge this into your project's `Packages/manifest.json`; preserve existing dependencies and registries.
 
 ```json
 {
@@ -25,25 +40,15 @@ Register the OpenUPM scoped registry once in your project's `Packages/manifest.j
 }
 ```
 
-## Install via Git URL
-
-Enter the following URL in Unity Package Manager's `Install package from git URL`.
+Or use **Install package from git URL** in Package Manager:
 
 ```text
 https://github.com/jeomseon0516/Unity.Projector.git#v0.1.1
 ```
 
-A mesh projection package built on Unity 6000.6 `Graphics.RenderMesh`, `RenderParams`, and
-`MaterialPropertyBlock`. The projection driver (C#) is render-pipeline agnostic, but the bundled
-shaders **target URP `17.6`**, so the package depends on `com.unity.render-pipelines.universal`. The
-Projector owns its internal Material and only accepts validated `ProjectorEffect` assets and semantic
-property values.
+## API usage and details
 
-The first version supports an orthographic box volume and `MeshRenderer`, `SkinnedMeshRenderer`, and
-`Terrain` receivers. Terrain uses an internally generated projection mesh at a configurable
-resolution. Screen-space decals, HDRP, and pipeline-specific lighting integration are outside the scope.
-
-## Receivers and refresh policy
+### Receivers and refresh policy
 
 - With `Automatically Collect Receivers` enabled, the projector scans for active overlapping
   receivers after projector volume/layer changes and at each `Automatic Refresh Interval`. The
@@ -58,3 +63,25 @@ resolution. Screen-space decals, HDRP, and pipeline-specific lighting integratio
 
 The component owns and releases its generated Materials and Meshes on disable/destruction. A
 `ProjectorEffect` shader must declare the `_ProjectorEffectVersion` contract.
+
+## Samples
+
+Import the desired entry from **Package Manager > Samples**. Use the included Scene/Editor tool and complete its Setup step first, if required.
+
+- [Basic Usage](Samples~/BasicUsage/README.md)
+  - [ProjectorBasicUsage](Samples~/BasicUsage/ProjectorBasicUsage.unity)
+
+## Tests
+
+[Test sources](Tests)
+
+Add the package ID to manifest `testables`, then execute its relevant EditMode/PlayMode assemblies in Unity Test Runner.
+
+## Further reading
+
+[Complete source map and package metadata](Documentation~/Overview.en.md)
+- [Changelog](CHANGELOG.md)
+
+## License
+
+[License](LICENSE.md)
